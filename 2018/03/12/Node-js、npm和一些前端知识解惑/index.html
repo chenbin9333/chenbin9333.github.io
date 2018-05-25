@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Node.js、npm和一些前端知识解惑 | 陈·述 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Chen Bin">
+    
+    
+
+    <meta name="description" content="对以往经历过原生App开发、当前主要做后端开发的我这样一个童鞋来说，不仅觉得Web前端布局繁杂，并且对其技术体系了解不深，人说当今是大前端时代，微信推出小程序后我也开始接触到相关的开发，现在很多开发框架也引入了数据绑定的概念，类似的如vue.js。一直以来对Node.js也有很多疑问，在此记录个解惑笔记。  Node.js 和 npm  12[官网关于Node.js的描述]Node.js® is">
+<meta name="keywords" content="frontend">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js、npm和一些前端知识解惑 | 陈·述">
+<meta property="og:url" content="http://chenbin9333.com/2018/03/12/Node-js、npm和一些前端知识解惑/index.html">
+<meta property="og:site_name" content="陈·述">
+<meta property="og:description" content="对以往经历过原生App开发、当前主要做后端开发的我这样一个童鞋来说，不仅觉得Web前端布局繁杂，并且对其技术体系了解不深，人说当今是大前端时代，微信推出小程序后我也开始接触到相关的开发，现在很多开发框架也引入了数据绑定的概念，类似的如vue.js。一直以来对Node.js也有很多疑问，在此记录个解惑笔记。  Node.js 和 npm  12[官网关于Node.js的描述]Node.js® is">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-12T09:49:09.538Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node.js、npm和一些前端知识解惑 | 陈·述">
+<meta name="twitter:description" content="对以往经历过原生App开发、当前主要做后端开发的我这样一个童鞋来说，不仅觉得Web前端布局繁杂，并且对其技术体系了解不深，人说当今是大前端时代，微信推出小程序后我也开始接触到相关的开发，现在很多开发框架也引入了数据绑定的概念，类似的如vue.js。一直以来对Node.js也有很多疑问，在此记录个解惑笔记。  Node.js 和 npm  12[官网关于Node.js的描述]Node.js® is">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for 陈·述"><img src="/images/avatar.png" width="80" alt="陈·述 logo" class="panel-cover__logo logo" /></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">陈·述</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          江山一叶在扁舟、英雄无踪枉回首 --河西东
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Node.js、npm和一些前端知识解惑</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-03-12" class="post-meta__date date">2018-03-12</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/frontend/">frontend</a>
+            </font>
+          
+
+      </span>
+    </div>
+
+    
+    
+
+
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    
+    <p>对以往经历过原生App开发、当前主要做后端开发的我这样一个童鞋来说，不仅觉得Web前端布局繁杂，并且对其技术体系了解不深，人说当今是大前端时代，微信推出小程序后我也开始接触到相关的开发，现在很多开发框架也引入了数据绑定的概念，类似的如vue.js。一直以来对Node.js也有很多疑问，在此记录个解惑笔记。</p>
+<ul>
+<li>Node.js 和 npm</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[官网关于Node.js的描述]</span><br><span class="line">Node.js® is a JavaScript runtime built on Chrome&apos;s V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient. Node.js&apos; package ecosystem, npm, is the largest ecosystem of open source libraries in the world.</span><br></pre></td></tr></table></figure>
+<p>所以，Node.js是一个构建在谷歌V8引擎的js运行环境。Node.js的事件驱动、非阻塞IO模型使其轻量、高效。npm是Node.js的包管理系统，是全世界最大的开发库生态系统。</p>
+<p>下面引入一段<a href="http://www.runoob.com/nodejs/nodejs-npm.html" target="_blank" rel="noopener">RUNOOB网站</a>上的解释：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NPM是随同NodeJS一起安装的包管理工具，能解决NodeJS代码部署上的很多问题，常见的使用场景有以下几种：</span><br><span class="line">1. 允许用户从NPM服务器下载别人编写的第三方包到本地使用。</span><br><span class="line">2. 允许用户从NPM服务器下载并安装别人编写的命令行程序到本地使用。</span><br><span class="line">3. 允许用户将自己编写的包或命令行程序上传到NPM服务器供别人使用。</span><br></pre></td></tr></table></figure>
+<p>从包管理的角度上来看，npm应该算是类似iOS中的CocoaPods，Java中的Maven。这样看起来就好理解多了。详细使用和原理还待深究。</p>
+<p>随着各种Web应用的发展，HTML5、小程序、React Native各种技术在多个领域的广泛使用，逐渐引领了一股前端热潮。手机端利用React开发跨平台应用，Node.js可编写提供后端服务等等。</p>
+<p>从当前Web前端开发来看，主要的前端技术框架有React、Angular JS、Vue，也有使用dva的，dva这个框架也是最近了解到的，可在github上找到。<a href="https://github.com/dvajs/dva" target="_blank" rel="noopener">dva on github</a></p>
+<p>常用的前端构建工具有Webpack、Gulp、Grunt。</p>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2018/03/12/Node-js、npm和一些前端知识解惑/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"chenbin9333"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

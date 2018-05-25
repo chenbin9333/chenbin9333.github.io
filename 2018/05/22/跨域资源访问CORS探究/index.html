@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      跨域访问CORS探究 | 陈·述 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Chen Bin">
+    
+    
+
+    <meta name="description" content="什么是跨域？跨域，简单地讲，就是一个Web应用（http://www.a.com）下的文档或脚本访问另一个Web应用（http://www.b.com）下的资源。任何两个应用所在域，只要存在协议、域名或端口任意一个不相同，即被认为访问是跨域的。 为什么会出现跨域访问限制？由于浏览器同源策略，我们这里主要讨论XmlHttpRequest同源策略，XmlHttpRequest同源策略禁止XHR对象向不">
+<meta name="keywords" content="Web,跨域请求">
+<meta property="og:type" content="article">
+<meta property="og:title" content="跨域访问CORS探究 | 陈·述">
+<meta property="og:url" content="http://chenbin9333.com/2018/05/22/跨域资源访问CORS探究/index.html">
+<meta property="og:site_name" content="陈·述">
+<meta property="og:description" content="什么是跨域？跨域，简单地讲，就是一个Web应用（http://www.a.com）下的文档或脚本访问另一个Web应用（http://www.b.com）下的资源。任何两个应用所在域，只要存在协议、域名或端口任意一个不相同，即被认为访问是跨域的。 为什么会出现跨域访问限制？由于浏览器同源策略，我们这里主要讨论XmlHttpRequest同源策略，XmlHttpRequest同源策略禁止XHR对象向不">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/8699b66egy1frnnzi0psvj210c0tw0wt.jpg">
+<meta property="og:image" content="http://wx4.sinaimg.cn/mw690/8699b66egy1frnord687bj20ly15q7cs.jpg">
+<meta property="og:updated_time" content="2018-05-25T09:44:50.430Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="跨域访问CORS探究 | 陈·述">
+<meta name="twitter:description" content="什么是跨域？跨域，简单地讲，就是一个Web应用（http://www.a.com）下的文档或脚本访问另一个Web应用（http://www.b.com）下的资源。任何两个应用所在域，只要存在协议、域名或端口任意一个不相同，即被认为访问是跨域的。 为什么会出现跨域访问限制？由于浏览器同源策略，我们这里主要讨论XmlHttpRequest同源策略，XmlHttpRequest同源策略禁止XHR对象向不">
+<meta name="twitter:image" content="http://wx4.sinaimg.cn/mw690/8699b66egy1frnnzi0psvj210c0tw0wt.jpg">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for 陈·述"><img src="/images/avatar.png" width="80" alt="陈·述 logo" class="panel-cover__logo logo" /></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">陈·述</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          江山一叶在扁舟、英雄无踪枉回首 --河西东
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">跨域访问CORS探究</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-05-22" class="post-meta__date date">2018-05-22</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/Web/">Web</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Web/">Web</a>, <a class="tags-link" href="/tags/跨域请求/">跨域请求</a>
+            </font>
+          
+
+      </span>
+    </div>
+
+    
+    
+
+
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    
+    <h3 id="什么是跨域？"><a href="#什么是跨域？" class="headerlink" title="什么是跨域？"></a>什么是跨域？</h3><p>跨域，简单地讲，就是一个Web应用（<a href="http://www.a.com）下的文档或脚本访问另一个Web应用（http://www.b.com）下的资源。任何两个应用所在域，只要存在协议、域名或端口任意一个不相同，即被认为访问是跨域的。" target="_blank" rel="noopener">http://www.a.com）下的文档或脚本访问另一个Web应用（http://www.b.com）下的资源。任何两个应用所在域，只要存在协议、域名或端口任意一个不相同，即被认为访问是跨域的。</a></p>
+<h3 id="为什么会出现跨域访问限制？"><a href="#为什么会出现跨域访问限制？" class="headerlink" title="为什么会出现跨域访问限制？"></a>为什么会出现跨域访问限制？</h3><p>由于浏览器同源策略，我们这里主要讨论<code>XmlHttpRequest</code>同源策略，<code>XmlHttpRequest</code>同源策略禁止XHR对象向不同源的服务器地址发送请求，这是浏览器出于安全考虑所做的限制。</p>
+<p>使用ajax向另一个域下的应用发送一个请求，在服务端未做跨域相关的处理之前将报如下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Failed to load http://localhost:8081/api: No &apos;Access-Control-Allow-Origin&apos; header is present on the requested resource. Origin &apos;http://localhost:3200&apos; is therefore not allowed access. If an opaque response serves your needs, set the request&apos;s mode to &apos;no-cors&apos; to fetch the resource with CORS disabled.</span><br></pre></td></tr></table></figure>
+<h3 id="什么是CORS？"><a href="#什么是CORS？" class="headerlink" title="什么是CORS？"></a>什么是CORS？</h3><p><code>CORS</code>，全称<code>Cross-Origin Resource Sharing</code>，即跨域（源）资源共享。CORS使用目标服务器上返回的HTTP头信息来标识允许来自特定的域的跨域访问。跨域请求诸如<img>标签加载来自不同域的图片、引用CDN的脚本样式等是允许的。然而为了安全考虑，浏览器显示了从脚本里发起的跨域HTTP请求，由于<code>XMLHttpRequest</code>和Fetch API遵从同源策略，在没有服务器端返回允许跨域的CORS头部信息时，这种类型的请求将被限制。</p>
+<p>CORS机制保障了浏览器和服务器之间跨域请求和数据传输的安全性，使得<code>XMLHttpRequest</code>和Fetch API进行跨域访问有了可能。</p>
+<h3 id="两种类型的跨域请求"><a href="#两种类型的跨域请求" class="headerlink" title="两种类型的跨域请求"></a>两种类型的跨域请求</h3><h4 id="简单请求-Simple-requests"><a href="#简单请求-Simple-requests" class="headerlink" title="简单请求 (Simple requests)"></a>简单请求 (Simple requests)</h4><p>简单请求是指当前跨域请求不触发“跨域中的的预检验”（即后面说到的预检请求），简单请求需要满足下面所有条件：</p>
+<ul>
+<li>请求方法是GET、POST或HEAD三者之一</li>
+<li>请求头部信息中仅允许出现以下列表的请求头<ul>
+<li>Accept</li>
+<li>Accept-Language</li>
+<li>Content-Language</li>
+<li>Content-Type，并且该值为application/x-www-form-urlencoded、multipart/form-data、text/plain三者之一</li>
+<li>Last-Event-ID</li>
+<li>DPR</li>
+<li>Save-Data</li>
+<li>Viewport-Width</li>
+<li>Width</li>
+</ul>
+</li>
+<li>XMLHttpRequestUpload对象在请求中没有注册事件监听 </li>
+<li>在请求中没有使用ReadableStream对象</li>
+</ul>
+<p>简单请求的请求头和响应头示例：</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/8699b66egy1frnnzi0psvj210c0tw0wt.jpg" alt="简单请求示例"></p>
+<h4 id="预检请求-Preflight-requests"><a href="#预检请求-Preflight-requests" class="headerlink" title="预检请求 (Preflight requests)"></a>预检请求 (Preflight requests)</h4><p>预检请求会在真正的请求之前发送一次预检的OPTIONS请求，先校验最终的请求是否可以安全发送。满足以下任一条件即是一个预检请求：</p>
+<ul>
+<li>请求方法是PUT、DELETE、CONNECT、OPTIONS、TRACE、PATCH之一</li>
+<li>请求头信息包含除了Accept、Accept-Language、Content-Language、Last-Event-ID、DPR、Save-Data、Viewport-Width、Width之外的任何头信息</li>
+<li>请求头信息包含Content-Type，其值不为application/x-www-form-urlencoded、multipart/form-data、text/plain三者任何一个</li>
+<li>在XMLHttpRequestUpload对象中使用事件监听</li>
+<li>请求中使用了ReadableStream对象</li>
+</ul>
+<p>预检请求示例，实际发生了两次请求，一次options检验请求，一次是实际获取数据的请求：</p>
+<p><img src="http://wx4.sinaimg.cn/mw690/8699b66egy1frnord687bj20ly15q7cs.jpg" alt="预检请求示例"></p>
+<h3 id="CORS中使用到的关键响应头信息"><a href="#CORS中使用到的关键响应头信息" class="headerlink" title="CORS中使用到的关键响应头信息"></a>CORS中使用到的关键响应头信息</h3><ul>
+<li><p><code>Access-Control-Allow-Origin</code></p>
+<p>该头部项的值可配置为通配符：<code>*</code>，表示允许来自任何域的跨域访问</p>
+<p>也可指定具体的域，比如：<a href="http://domain.a.com" target="_blank" rel="noopener">http://domain.a.com</a></p>
+<p>注：跨域请求中的请求头部信息中的<code>Origin</code>为请求所在域，与该响应头部值匹配即可完成跨域访问</p>
+</li>
+<li><p><code>Access-Control-Allow-Methods</code></p>
+<p>该头部项指定了跨域请求中允许使用的请求方法，也可配置成通配符<code>*</code>，多个值用逗号分隔，如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Methods: GET, POST, OPTIONS, HEAD, PUT</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Access-Control-Allow-Headers</code></p>
+<p>该头部项指定了跨域请求中允许使用的头部信息，由于请求中经常使用到的<code>Content-Type</code>不为<code>application/x-www-form-urlencoded、multipart/form-data、text/plain</code>时，请求将转为预检请求，通常地，需要将<code>Content-Type</code>、其他一些常用的头部和自定义的头部信息在此处指定，以便跨域访问正常完成</p>
+</li>
+<li><p><code>Access-Control-Allow-Credentials</code></p>
+<p>当前端网页请求指定了<code>withCredentials</code>为true时，后端返回响应头中需要指定<code>Access-Control-Allow-Credentials</code>值为<code>true</code>，如果仅仅是前端网页在请求时指定<code>withCredentials</code>为<code>true</code>，那后端返回的结果将被浏览器忽略，从而请求无法完成。跨域请求默认不发送cookie，前端网页请求时，将<code>withCredentials</code>值设为true，表示允许发送cookie信息，当然也需要服务器明确许可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Credentials: true</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="CORS解决跨域访问限制的实现"><a href="#CORS解决跨域访问限制的实现" class="headerlink" title="CORS解决跨域访问限制的实现"></a>CORS解决跨域访问限制的实现</h3><p>如果想让我们的后端应用允许某些特定域的跨域请求，一般地，我们需要在拦截请求处对请求进行校验并对允许的跨域请求响应设置适当的响应头部信息。</p>
+<p>典型地，项目中使用了Servlet统一拦截了请求，这个时候需要实现我们对应允许的请求方法，如doGet、doPost处理普通的GET/POST请求，doOptions处理预检请求。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> ServletException</span>&#123;</span><br><span class="line">		<span class="keyword">super</span>.init();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException</span>&#123;</span><br><span class="line">		doPost(request, response);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException</span>&#123;</span><br><span class="line">		String origin = request.getHeader(<span class="string">"Origin"</span>);</span><br><span class="line">		List&lt;String&gt; allowOrigins = CORSUtil.getAllowOrigins();</span><br><span class="line">		<span class="keyword">if</span>(StringUtils.isNotBlank(origin) &amp;&amp; allowOrigins.contains(origin))&#123;</span><br><span class="line">			<span class="comment">// 校验当前域是允许跨域访问的域</span></span><br><span class="line">			response.setHeader(<span class="string">"Access-Control-Allow-Origin"</span>, origin);</span><br><span class="line">			response.setHeader(<span class="string">"Access-Control-Allow-Credentials"</span>, <span class="string">"true"</span>);</span><br><span class="line">			response.setHeader(<span class="string">"Access-Control-Allow-Methods"</span>, <span class="string">"*"</span>);</span><br><span class="line">			response.setHeader(<span class="string">"Access-Control-Allow-Headers"</span>, <span class="string">"Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With"</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// compose your response here</span></span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 处理跨域中的OPTIONS预检请求，OPTIONS请求同样需要指定允许访问的域</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doOptions</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>.doOptions(req, resp);</span><br><span class="line">		String origin = req.getHeader(<span class="string">"Origin"</span>);</span><br><span class="line">		<span class="keyword">if</span>(StringUtils.isNotBlank(origin))&#123;</span><br><span class="line">			resp.setStatus(HttpStatus.SC_NO_CONTENT);</span><br><span class="line">			<span class="comment">//允许预检请求跨域，此处让所有OPTIONS请求都能跨域，实际检验在post中进行</span></span><br><span class="line">	    	resp.setHeader(<span class="string">"Access-Control-Allow-Origin"</span>, origin);</span><br><span class="line">	    	resp.setHeader(<span class="string">"Access-Control-Allow-Credentials"</span>, <span class="string">"true"</span>);</span><br><span class="line">	    	resp.setHeader(<span class="string">"Access-Control-Allow-Methods"</span>, <span class="string">"*"</span>);</span><br><span class="line">	    	resp.setHeader(<span class="string">"Access-Control-Allow-Headers"</span>, <span class="string">"Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者使用过滤器Filter一站式处理所有类型的请求：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CorsFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(FilterConfig filterConfig)</span> <span class="keyword">throws</span> ServletException</span>&#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException</span>&#123;</span><br><span class="line">		String origin = request.getHeader(<span class="string">"Origin"</span>);</span><br><span class="line">		List&lt;String&gt; allowOrigins = CORSUtil.getAllowOrigins();</span><br><span class="line">		<span class="keyword">if</span>(<span class="string">"OPTIONS"</span>.equalsIgnoreCase(request.getMethod) ||</span><br><span class="line">			(StringUtils.isNotBlank(origin) &amp;&amp; allowOrigins.contains(origin))&#123;</span><br><span class="line">			<span class="comment">// 当为options请求 或 当前域是允许跨域访问的域 都设置必要的 完成跨域访问的响应头部信息</span></span><br><span class="line">			response.setHeader(<span class="string">"Access-Control-Allow-Origin"</span>, origin);</span><br><span class="line">			response.setHeader(<span class="string">"Access-Control-Allow-Credentials"</span>, <span class="string">"true"</span>);</span><br><span class="line">			response.setHeader(<span class="string">"Access-Control-Allow-Methods"</span>, <span class="string">"*"</span>);</span><br><span class="line">			response.setHeader(<span class="string">"Access-Control-Allow-Headers"</span>, <span class="string">"Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span></span>&#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>web.xml</code>配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>corsFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>com.test.filter.CorsFilter<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>corsFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>参考链接：</p>
+<p><a href="http://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank" rel="noopener">http://developer.mozilla.org/en-US/docs/Web/HTTP/CORS</a></p>
+<p><a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2016/04/cors.html</a></p>
+</blockquote>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2018/05/22/跨域资源访问CORS探究/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"chenbin9333"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Dubbo and ZooKepper | 陈·述 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Chen Bin">
+    
+    
+
+    <meta name="description" content="1Writing is pretty much like coding, and the author is the compiler. Dubbo 和 ZooKeeper，一个“搭布”和动物园管理员的故事，而实际上它们是一个开发的故事，让我们开始学习并使用它们吧。 分而治之 (Divide and conquer.)  首先我们先解决何为 Dubbo 和 何为 ZooKeeper 的问题，再接着">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dubbo and ZooKepper | 陈·述">
+<meta property="og:url" content="http://chenbin9333.com/2016/12/07/Dubbo-and-ZooKepper/index.html">
+<meta property="og:site_name" content="陈·述">
+<meta property="og:description" content="1Writing is pretty much like coding, and the author is the compiler. Dubbo 和 ZooKeeper，一个“搭布”和动物园管理员的故事，而实际上它们是一个开发的故事，让我们开始学习并使用它们吧。 分而治之 (Divide and conquer.)  首先我们先解决何为 Dubbo 和 何为 ZooKeeper 的问题，再接着">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2016-12-08T09:36:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dubbo and ZooKepper | 陈·述">
+<meta name="twitter:description" content="1Writing is pretty much like coding, and the author is the compiler. Dubbo 和 ZooKeeper，一个“搭布”和动物园管理员的故事，而实际上它们是一个开发的故事，让我们开始学习并使用它们吧。 分而治之 (Divide and conquer.)  首先我们先解决何为 Dubbo 和 何为 ZooKeeper 的问题，再接着">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for 陈·述"><img src="/images/avatar.png" width="80" alt="陈·述 logo" class="panel-cover__logo logo" /></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">陈·述</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          江山一叶在扁舟、英雄无踪枉回首 --河西东
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Dubbo and ZooKepper</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-12-07" class="post-meta__date date">2016-12-07</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Java/">Java</a>
+            </font>
+          
+
+      </span>
+    </div>
+
+    
+    
+
+
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    
+    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Writing is pretty much like coding, and the author is the compiler.</span><br></pre></td></tr></table></figure>
+<p>Dubbo 和 ZooKeeper，一个“搭布”和动物园管理员的故事，而实际上它们是一个开发的故事，让我们开始学习并使用它们吧。</p>
+<p>分而治之 (Divide and conquer.) </p>
+<p>首先我们先解决何为 Dubbo 和 何为 ZooKeeper 的问题，再接着探究二者之间的关系，最后，再使用这两者进行开发应用实现一个Demo。</p>
+<h2 id="何为-Dubbo-？"><a href="#何为-Dubbo-？" class="headerlink" title="何为 Dubbo ？"></a>何为 Dubbo ？</h2><p>Dubbo 是阿里的一个开源框架，来看看 <a href="http://dubbo.io/Home-zh.htm" target="_blank" rel="noopener">Dubbo 官网</a> 给出的定义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Dubbo 是一个分布式服务框架，致力于提供高性能和透明化的RPC远程服务调用方案，以及SOA服务治理方案。</span><br><span class="line">其核心部分包含:</span><br><span class="line">* 远程通讯: 提供对多种基于长连接的NIO框架抽象封装，包括多种线程模型，序列化，以及“请求-响应”模式的信息交换方式。</span><br><span class="line">* 集群容错: 提供基于接口方法的透明远程过程调用，包括多协议支持，以及软负载均衡，失败容错，地址路由，动态配置等集群支持。</span><br><span class="line">* 自动发现: 基于注册中心目录服务，使服务消费方能动态的查找服务提供方，使地址透明，使服务提供方可以平滑增加或减少机器。</span><br></pre></td></tr></table></figure>
+<p>其中<code>分布式</code>是我们可以利用 Dubbo 进行集群搭建和负载均衡。而<code>服务</code>是服务提供方开发服务注册到注册中心提供给服务消费方使用，为远程服务，地址透明。</p>
+<h2 id="何为-ZooKeeper-？"><a href="#何为-ZooKeeper-？" class="headerlink" title="何为 ZooKeeper ？"></a>何为 ZooKeeper ？</h2><p>同样来看 <a href="http://zookeeper.apache.org/" target="_blank" rel="noopener">ZooKeeper 官网</a> 的定义：</p>
+<blockquote>
+<p>   ZooKeeper is a centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services. All of these kinds of services are used in some form or another by distributed applications. Each time they are implemented there is a lot of work that goes into fixing the bugs and race conditions that are inevitable. Because of the difficulty of implementing these kinds of services, applications initially usually skimp on them ,which make them brittle in the presence of change and difficult to manage. Even when done correctly, different implementations of these services lead to management complexity when the applications are deployed.<br>    ZooKeeper aims at distilling the essence of these different services into a very simple interface to a centralized coordination service. The service itself is distributed and highly reliable. Consensus, group management, and presence protocols will be implemented by the service so that the applications do not need to implement them on their own. Application specific uses of these will consist of a mixture of specific components of Zoo Keeper and application specific conventions. ZooKeeper Recipes shows how this simple service can be used to build much more powerful abstractions.</p>
+</blockquote>
+<p>简单地翻译下，ZooKeeper 是一个维护配置信息、命名服务，提供分布式同步和集群服务的中心化的服务。这几种服务都被分布式应用中以某种形式被使用。由于实现这几种服务的难度，应用初期会略过它们，这就让它们（命名、分布式、集群服务等）在变化出现时非常脆弱且难于管理，所以每次去实现它们的时候都要花费大量时间处理bug和混乱的情况。即时我们正确实现了这些服务，但是应用部署的时候也会变得难以管理。</p>
+<p>因此，ZooKeeper旨在作为一个分布式和高可用的中心协调调度服务，提取不同服务的精华成为一个简单的接口。集群管理、在线协议可以通过这个服务实现。应用对服务的具体使用将组成ZooKeeper的具体组件和应用的约定。ZooKeeper展示出了如何使用这个简单服务区构建更强大的抽象。</p>
+<p>ZooKeeper 是作为Dubbo服务的注册中心使用，从设计模式角度看，是一个基于观察者模式设计的分布式服务管理框架。</p>
+<h2 id="Dubbo-和-ZooKeeper-的关系？"><a href="#Dubbo-和-ZooKeeper-的关系？" class="headerlink" title="Dubbo 和 ZooKeeper 的关系？"></a>Dubbo 和 ZooKeeper 的关系？</h2><p>Dubbo对注册中心进行了抽象，引入ZooKeeper作为Dubbo服务注册中心，ZooKeeper集群具备了负载均衡的能力，加上资源同步，使注册中心的承载能力增强。</p>
+<p>（以上都是Dubbo和ZooKeeper的简单概述，而关于二者的原理和架构设计还需另做深究。）</p>
+<h2 id="Dubbo-和-ZooKeeper-使用示例"><a href="#Dubbo-和-ZooKeeper-使用示例" class="headerlink" title="Dubbo 和 ZooKeeper 使用示例"></a>Dubbo 和 ZooKeeper 使用示例</h2><h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><h4 id="下载安装ZooKeeper"><a href="#下载安装ZooKeeper" class="headerlink" title="下载安装ZooKeeper"></a>下载安装ZooKeeper</h4><p><a href="http://zookeeper.apache.org/releases.html" target="_blank" rel="noopener">ZooKeeper 官网下载链接</a>下载后解压即可使用了。</p>
+<h4 id="ZooKeeper启动、关闭"><a href="#ZooKeeper启动、关闭" class="headerlink" title="ZooKeeper启动、关闭"></a>ZooKeeper启动、关闭</h4><p>进入ZooKeeper所在目录，进入其下层bin目录，使用命令操作ZooKeeper的开关。<br>如zookeeper-3.4.6/bin：</p>
+<blockquote>
+<ul>
+<li>启动服务:    <code>sh zkServer.sh start</code></li>
+<li>查看服务状态: <code>sh zkServer.sh status</code></li>
+<li>停止服务:    <code>sh zkServer.sh stop</code></li>
+<li>重启服务:    <code>sh zkServer.sh restart</code></li>
+</ul>
+</blockquote>
+<h3 id="示例编写"><a href="#示例编写" class="headerlink" title="示例编写"></a>示例编写</h3><h4 id="编写提供者（Provider）提供的服务接口"><a href="#编写提供者（Provider）提供的服务接口" class="headerlink" title="编写提供者（Provider）提供的服务接口"></a>编写提供者（Provider）提供的服务接口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface HelloService &#123;</span><br><span class="line">	public String sayHello(String name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="服务接口的具体实现"><a href="#服务接口的具体实现" class="headerlink" title="服务接口的具体实现"></a>服务接口的具体实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class HelloServiceImpl implements HelloService &#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public String sayHello(String name) &#123;</span><br><span class="line">		return &quot;Hello &quot; + name;	</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="注册并暴露服务接口"><a href="#注册并暴露服务接口" class="headerlink" title="注册并暴露服务接口"></a>注册并暴露服务接口</h4><p>提供者方的配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 需要暴露的服务实现类 --&gt;</span><br><span class="line">    &lt;bean id=&quot;helloService&quot; class=&quot;com.delonix.service.provider.HelloServiceImpl&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 注册服务 --&gt;</span><br><span class="line">    &lt;dubbo:service interface=&quot;com.delonix.service.HelloService&quot; ref=&quot;helloService&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>消费者方的配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 订阅需要消费的服务 --&gt;</span><br><span class="line">&lt;dubbo:reference id=&quot;comsumerHelloService&quot; interface=&quot;com.delonix.service.HelloService&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="客户端调用HelloService接口"><a href="#客户端调用HelloService接口" class="headerlink" title="客户端调用HelloService接口"></a>客户端调用HelloService接口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@Controller</span><br><span class="line">@RequestMapping(&quot;/hello/*&quot;)</span><br><span class="line">public class HelloController &#123;</span><br><span class="line">	</span><br><span class="line">	@Autowired</span><br><span class="line">	private HelloService comsumerHelloService;</span><br><span class="line">	</span><br><span class="line">	@RequestMapping(value=&quot;/sayHello&quot;, method=RequestMethod.GET)</span><br><span class="line">	public void sayHello(@RequestParam(value=&quot;name&quot;, required=true) String name,</span><br><span class="line">			HttpServletResponse resp) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">        	String hello = comsumerHelloService.sayHello(name); // 执行远程方法</span><br><span class="line">			resp.getWriter().print(hello);</span><br><span class="line">		&#125; catch (IOException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h2&gt;Hello World!&lt;/h2&gt;</span><br><span class="line">&lt;a href=&quot;hello/sayHello?name=chenbin&quot;&gt;Hello Chenbin&lt;/a&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>页面执行结果将打印出：<code>Hello chenbin</code></p>
+<p>完整的Demo工程见Github链接<a href="https://github.com/chenbin9333/delonix" target="_blank" rel="noopener">https://github.com/chenbin9333/delonix</a></p>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/12/07/Dubbo-and-ZooKepper/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"chenbin9333"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
