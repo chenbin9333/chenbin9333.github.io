@@ -1,199 +1,142 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    
-
-    <title>
-      单例模式 Singleton Pattern | 陈·述 
-    </title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    
-      <meta name="author" content="Chen Bin">
-    
-    
-
-    <meta name="description" content="何为单例模式？单例，顾名思义即为单个实例。我们使用单例模式的目标就是为了创建某个类的唯一实例，换个角度说就是保持某个类只有唯一一个实例存在并提供给外部使用。 单例模式的定义《Head First Design Pattern》书中的定义：The Singleton Pattern ensures a class has only one instance, and provides a globa">
+  <meta charset="utf-8">
+  
+  <title>单例模式 Singleton Pattern | 陈·述</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Design Pattern设计模式Singleton单例模式" />
+  
+  
+  
+  
+  <meta name="description" content="何为单例模式？单例，顾名思义即为单个实例。我们使用单例模式的目标就是为了创建某个类的唯一实例，换个角度说就是保持某个类只有唯一一个实例存在并提供给外部使用。">
 <meta name="keywords" content="Design Pattern,设计模式,Singleton,单例模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="单例模式 Singleton Pattern | 陈·述">
+<meta property="og:title" content="单例模式 Singleton Pattern">
 <meta property="og:url" content="http://chenbin9333.com/2016/04/11/单例模式-Singleton-Pattern/index.html">
 <meta property="og:site_name" content="陈·述">
-<meta property="og:description" content="何为单例模式？单例，顾名思义即为单个实例。我们使用单例模式的目标就是为了创建某个类的唯一实例，换个角度说就是保持某个类只有唯一一个实例存在并提供给外部使用。 单例模式的定义《Head First Design Pattern》书中的定义：The Singleton Pattern ensures a class has only one instance, and provides a globa">
+<meta property="og:description" content="何为单例模式？单例，顾名思义即为单个实例。我们使用单例模式的目标就是为了创建某个类的唯一实例，换个角度说就是保持某个类只有唯一一个实例存在并提供给外部使用。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2016-06-05T16:49:33.000Z">
+<meta property="og:updated_time" content="2018-05-28T10:07:19.587Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="单例模式 Singleton Pattern | 陈·述">
-<meta name="twitter:description" content="何为单例模式？单例，顾名思义即为单个实例。我们使用单例模式的目标就是为了创建某个类的唯一实例，换个角度说就是保持某个类只有唯一一个实例存在并提供给外部使用。 单例模式的定义《Head First Design Pattern》书中的定义：The Singleton Pattern ensures a class has only one instance, and provides a globa">
+<meta name="twitter:title" content="单例模式 Singleton Pattern">
+<meta name="twitter:description" content="何为单例模式？单例，顾名思义即为单个实例。我们使用单例模式的目标就是为了创建某个类的唯一实例，换个角度说就是保持某个类只有唯一一个实例存在并提供给外部使用。">
+  
+    <link rel="alternate" href="/atom.xml" title="陈·述" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
     
-    
-    
-      <link rel="icon" type="image/x-icon" href="/favicon.png">
-    
-    <link rel="stylesheet" href="/css/uno.css">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/archive.css">
-    <link rel="stylesheet" href="/css/china-social-icon.css">
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/fashion.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
 
 </head>
-<body>
-
-    <span class="mobile btn-mobile-menu">
-        <i class="icon icon-list btn-mobile-menu__icon"></i>
-        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
-    </span>
-
-    
-
-<header class="panel-cover panel-cover--collapsed">
 
 
-  <div class="panel-main">
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
 
   
-    <div class="panel-main__inner panel-inverted">
-    <div class="panel-main__content">
 
-        
-        <a href="/" title="link to homepage for 陈·述"><img src="/images/avatar.png" width="80" alt="陈·述 logo" class="panel-cover__logo logo" /></a>
-        
 
-        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">陈·述</a></h1>
-        <hr class="panel-cover__divider" />
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
 
-        
-        <p class="panel-cover__description">
-          江山一叶在扁舟、英雄无踪枉回首 --河西东
-        </p>
-        <hr class="panel-cover__divider panel-cover__divider--secondary" />
-        
+          <h1 class="site-title">
+            
+              <a href="/" title="陈·述" rel="home"> 陈·述 </a>
+            
+          </h1>
+          
+          
+            <div class="site-description">technology and stuff</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
 
-        <div class="navigation-wrapper">
-
-          <nav class="cover-navigation cover-navigation--primary">
-            <ul class="navigation">
-
-              
-                
-                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
-              
-                
-                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
-              
-                
-                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
-              
-
-            </ul>
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">归档</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">分类</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tags">标签</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/about">关于</a> </li>
+                    
+              </ul>
+            </div>
           </nav>
 
-          <!-- ----------------------------
-To add a new social icon simply duplicate one of the list items from below
-and change the class in the <i> tag to match the desired social network
-and then add your link to the <a>. Here is a full list of social network
-classes that you can use:
-
-    icon-social-500px
-    icon-social-behance
-    icon-social-delicious
-    icon-social-designer-news
-    icon-social-deviant-art
-    icon-social-digg
-    icon-social-dribbble
-    icon-social-facebook
-    icon-social-flickr
-    icon-social-forrst
-    icon-social-foursquare
-    icon-social-github
-    icon-social-google-plus
-    icon-social-hi5
-    icon-social-instagram
-    icon-social-lastfm
-    icon-social-linkedin
-    icon-social-medium
-    icon-social-myspace
-    icon-social-path
-    icon-social-pinterest
-    icon-social-rdio
-    icon-social-reddit
-    icon-social-skype
-    icon-social-spotify
-    icon-social-stack-overflow
-    icon-social-steam
-    icon-social-stumbleupon
-    icon-social-treehouse
-    icon-social-tumblr
-    icon-social-twitter
-    icon-social-vimeo
-    icon-social-xbox
-    icon-social-yelp
-    icon-social-youtube
-    icon-social-zerply
-    icon-mail
-
--------------------------------->
-
-<!-- add social info here -->
-
-
-
-        </div>
-
       </div>
-
-    </div>
-
-    <div class="panel-cover--overlay"></div>
   </div>
 </header>
 
-    <div class="content-wrapper">
-        <div class="content-wrapper__inner entry">
+
+  <div id="container">
+    <div id="wrap">
             
-
-<article class="post-container post-container--single">
-
-  <header class="post-header">
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-单例模式-Singleton-Pattern" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
-    <h1 class="post-title">单例模式 Singleton Pattern</h1>
-
     
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      单例模式 Singleton Pattern
+    </h1>
+  
 
-    <div class="post-meta">
-      <time datetime="2016-04-11" class="post-meta__date date">2016-04-11</time> 
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2016/04/11/单例模式-Singleton-Pattern/" class="article-date">
+	  <time datetime="2016-04-11T15:04:36.000Z" itemprop="datePublished">四月 11, 2016</time>
+	</a>
 
-      <span class="post-meta__tags tags">
-
-          
-            <font class="categories">
-            &#8226; 分类:
-            <a class="categories-link" href="/categories/Design-Pattern/">Design Pattern</a>
-            </font>
-          
-
-          
-             &#8226; 标签:
-            <font class="tags">
-              <a class="tags-link" href="/tags/Design-Pattern/">Design Pattern</a>, <a class="tags-link" href="/tags/Singleton/">Singleton</a>, <a class="tags-link" href="/tags/单例模式/">单例模式</a>, <a class="tags-link" href="/tags/设计模式/">设计模式</a>
-            </font>
-          
-
-      </span>
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/Design-Pattern/">Design Pattern</a>
+ 
+      
     </div>
-
-    
-    
-
-
-
-  </header>
-
-  <section id="post-content" class="article-content post">
-    
-    <h2 id="何为单例模式？"><a href="#何为单例模式？" class="headerlink" title="何为单例模式？"></a>何为单例模式？</h2><p>单例，顾名思义即为单个实例。我们使用单例模式的目标就是为了创建某个类的唯一实例，换个角度说就是保持某个类只有唯一一个实例存在并提供给外部使用。</p>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="何为单例模式？"><a href="#何为单例模式？" class="headerlink" title="何为单例模式？"></a>何为单例模式？</h2><p>单例，顾名思义即为单个实例。我们使用单例模式的目标就是为了创建某个类的唯一实例，换个角度说就是保持某个类只有唯一一个实例存在并提供给外部使用。</p>
+<a id="more"></a>
 <h2 id="单例模式的定义"><a href="#单例模式的定义" class="headerlink" title="单例模式的定义"></a>单例模式的定义</h2><p>《Head First Design Pattern》书中的定义：<br>The Singleton Pattern ensures a class has only one instance, and provides a global point of access to it.<br>单例模式保证某个类只有一个实例，并对外提供一个该实例的全局访问点。</p>
 <h2 id="单例模式应用场景"><a href="#单例模式应用场景" class="headerlink" title="单例模式应用场景"></a>单例模式应用场景</h2><p>有一些特殊的场景下我们需要保持类只有唯一实例以达到保持程序的正确性、避免资源过度使用、数据不一致等目的，比如线程池、缓存、对话框、用于保存一些偏好设置的对象等。</p>
 <p>举个栗子，皇帝自古以来只有一个，试想当出现了多个皇帝，大家都不知道该认准哪一个，势必天下大乱。</p>
@@ -211,92 +154,161 @@ classes that you can use:
 <h4 id="结果分析-2"><a href="#结果分析-2" class="headerlink" title="结果分析"></a>结果分析</h4><p>使用volatile关键字修饰uniqueInstance保证了多线程之间能正确处理它，即确保了uniqueInstance变量的更新操作能及时反应到其他线程之中，但volatile并不能完全保证线程安全，接着使用这个双重检查锁定的方式，达到只在第一次初始化时进行锁定，从而提高程序性能。双重检查锁定的方式只有在JDK 1.5之后才能达到单例的目的。</p>
 <h3 id="方案四：不使用懒加载的方式"><a href="#方案四：不使用懒加载的方式" class="headerlink" title="方案四：不使用懒加载的方式"></a><strong>方案四</strong>：不使用懒加载的方式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class Singleton &#123;</span><br><span class="line">	private static Singleton uniqueInstance = new SingleTon();</span><br><span class="line">	</span><br><span class="line">	public static Singleton getInstance() &#123;</span><br><span class="line">		return uniqueInstance;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="结果分析-3"><a href="#结果分析-3" class="headerlink" title="结果分析"></a>结果分析</h4><p>通过这种方式我们依赖于JVM在类加载完成后去创建一个唯一实例，JVM保证实例创建之前所有线程都无法访问到静态变量uniqueInstance。</p>
-<h3 id="方案五：依赖于Java的类加载机制实现单例模式"><a href="#方案五：依赖于Java的类加载机制实现单例模式" class="headerlink" title="方案五：依赖于Java的类加载机制实现单例模式"></a><strong>方案五</strong>：依赖于Java的类加载机制实现单例模式</h3><pre><code>public class Singleton {  
-    private static class SingletonHolder {  
-        private static final Singleton uniqueInstance = new Singleton();  
-    }  
-
-    private Singleton (){}
-
-    public static final Singleton getInstance() {  
-        return SingletonHolder.uniqueInstance;  
-    }  
-}
-</code></pre><h4 id="结果分析-4"><a href="#结果分析-4" class="headerlink" title="结果分析"></a>结果分析</h4><p>这种实现方式同样利用了Java的类加载机制来保证初始化时只有一个线程访问，而且使用类静态内部类来持有单例实例变量，从而达到懒加载的目的，如果没有调用getInstance()方法将不会对单例实例进行初始化。</p>
+<h3 id="方案五：依赖于Java的类加载机制实现单例模式"><a href="#方案五：依赖于Java的类加载机制实现单例模式" class="headerlink" title="方案五：依赖于Java的类加载机制实现单例模式"></a><strong>方案五</strong>：依赖于Java的类加载机制实现单例模式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class Singleton &#123;  </span><br><span class="line">	private static class SingletonHolder &#123;  </span><br><span class="line">		private static final Singleton uniqueInstance = new Singleton();  </span><br><span class="line">	&#125;  </span><br><span class="line">	</span><br><span class="line">	private Singleton ()&#123;&#125;</span><br><span class="line"></span><br><span class="line">	public static final Singleton getInstance() &#123;  </span><br><span class="line">		return SingletonHolder.uniqueInstance;  </span><br><span class="line">	&#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="结果分析-4"><a href="#结果分析-4" class="headerlink" title="结果分析"></a>结果分析</h4><p>这种实现方式同样利用了Java的类加载机制来保证初始化时只有一个线程访问，而且使用类静态内部类来持有单例实例变量，从而达到懒加载的目的，如果没有调用getInstance()方法将不会对单例实例进行初始化。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>需要保证线程安全并且使用懒加载的方式，我们可以采用方案三和方案五。而方案四也保证了线程安全，唯一的区别在于没有使用懒加载。这三种方式都是较好的实现方式。在Java中而言，使用方案五，避免了去处理很多相关的问题，由JVM帮我们一手包办，最直接简洁。</p>
 
-  </section>
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/Design-Pattern/">Design Pattern</a>
 
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Design-Pattern/">Design Pattern</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Singleton/">Singleton</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/单例模式/">单例模式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/12/07/Dubbo-and-ZooKepper/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Dubbo and ZooKepper
+        
+      </div>
+    </a>
   
   
+</nav>
 
-<section class="post-comments">
-
-    <div class="ds-thread" data-thread-key="2016/04/11/单例模式-Singleton-Pattern/"></div>
-
-    <script type="text/javascript">
-      var duoshuoQuery = {short_name:"chenbin9333"};
-      (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0] 
-        || document.getElementsByTagName('body')[0]).appendChild(ds);
-      })();
-    </script> 
-
-</section>
-
-
+  
 </article>
 
+<!-- Table of Contents -->
 
-            <footer class="footer">
-
-    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
     
-</footer>
-        </div>
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#何为单例模式？"><span class="nav-number">1.</span> <span class="nav-text">何为单例模式？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单例模式的定义"><span class="nav-number">2.</span> <span class="nav-text">单例模式的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单例模式应用场景"><span class="nav-number">3.</span> <span class="nav-text">单例模式应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现单例模式的方式"><span class="nav-number">4.</span> <span class="nav-text">实现单例模式的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java中实现单例模式"><span class="nav-number">5.</span> <span class="nav-text">Java中实现单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方案一：最简单的实现，没有考虑多线程问题，可能导致多个实例存在"><span class="nav-number">5.1.</span> <span class="nav-text">方案一：最简单的实现，没有考虑多线程问题，可能导致多个实例存在</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#执行结果的可能性之一"><span class="nav-number">5.1.1.</span> <span class="nav-text">执行结果的可能性之一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结果分析"><span class="nav-number">5.1.2.</span> <span class="nav-text">结果分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方案二：使用同步锁对初始化实例进行锁定，以解决多线程中出现的问题"><span class="nav-number">5.2.</span> <span class="nav-text">方案二：使用同步锁对初始化实例进行锁定，以解决多线程中出现的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#结果分析-1"><span class="nav-number">5.2.1.</span> <span class="nav-text">结果分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方案三：改进使用同步锁的方式"><span class="nav-number">5.3.</span> <span class="nav-text">方案三：改进使用同步锁的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#结果分析-2"><span class="nav-number">5.3.1.</span> <span class="nav-text">结果分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方案四：不使用懒加载的方式"><span class="nav-number">5.4.</span> <span class="nav-text">方案四：不使用懒加载的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#结果分析-3"><span class="nav-number">5.4.1.</span> <span class="nav-text">结果分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方案五：依赖于Java的类加载机制实现单例模式"><span class="nav-number">5.5.</span> <span class="nav-text">方案五：依赖于Java的类加载机制实现单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#结果分析-4"><span class="nav-number">5.5.1.</span> <span class="nav-text">结果分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol>
+    
     </div>
+  </aside>
+</section>
+        
+      </div>
 
-    <!-- js files -->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/main.js"></script>
-    <script src="/js/scale.fix.js"></script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2018 陈·述 All Rights Reserved.
+        
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
     
-
     
-
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript"> 
-        $(document).ready(function(){
-            MathJax.Hub.Config({ 
-                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
-            });
-        });
-    </script>
-
-
+</script>
     
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
 
-    <script src="/js/awesome-toc.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $.awesome_toc({
-                overlay: true,
-                contentId: "post-content",
-            });
-        });
-    </script>
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 
-    
-    
-    <!--kill ie6 -->
-<!--[if IE 6]>
-  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
-<![endif]-->
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
 </body>
 </html>

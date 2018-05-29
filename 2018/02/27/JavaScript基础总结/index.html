@@ -1,288 +1,315 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    
-
-    <title>
-      JavaScript基础总结 | 陈·述 
-    </title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    
-      <meta name="author" content="Chen Bin">
-    
-    
-
-    <meta name="description" content="JavaScript基础总结作用域 代码块（Block）的概念   代码块的概念在不同的语言里可能有不同的含义，如Objective-C中的代码块就和此处的不同，这里是讲JavaScript中由花括号{}包裹的部分，称它为代码块，一般地，代码块中声明的变量叫做局部变量，这里局部的概念就引出了作用域。每个代码块都有一个自己的作用域，作用域限制了变量能否被访问。   123456789for (var">
+  <meta charset="utf-8">
+  
+  <title>JavaScript基础总结 | 陈·述</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="JavaScript" />
+  
+  
+  
+  
+  <meta name="description" content="JavaScript变量作用域作用域 代码块（Block）的概念 代码块的概念在不同的语言里可能有不同的含义，如Objective-C中的代码块就和此处的不同，这里是讲JavaScript中由花括号{}包裹的部分，称它为代码块，一般地，代码块中声明的变量叫做局部变量，这里局部的概念就引出了作用域。每个代码块都有一个自己的作用域，作用域限制了变量能否被访问。">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript基础总结 | 陈·述">
+<meta property="og:title" content="JavaScript基础总结">
 <meta property="og:url" content="http://chenbin9333.com/2018/02/27/JavaScript基础总结/index.html">
 <meta property="og:site_name" content="陈·述">
-<meta property="og:description" content="JavaScript基础总结作用域 代码块（Block）的概念   代码块的概念在不同的语言里可能有不同的含义，如Objective-C中的代码块就和此处的不同，这里是讲JavaScript中由花括号{}包裹的部分，称它为代码块，一般地，代码块中声明的变量叫做局部变量，这里局部的概念就引出了作用域。每个代码块都有一个自己的作用域，作用域限制了变量能否被访问。   123456789for (var">
+<meta property="og:description" content="JavaScript变量作用域作用域 代码块（Block）的概念 代码块的概念在不同的语言里可能有不同的含义，如Objective-C中的代码块就和此处的不同，这里是讲JavaScript中由花括号{}包裹的部分，称它为代码块，一般地，代码块中声明的变量叫做局部变量，这里局部的概念就引出了作用域。每个代码块都有一个自己的作用域，作用域限制了变量能否被访问。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-02-27T08:32:06.280Z">
+<meta property="og:updated_time" content="2018-05-29T05:53:20.055Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript基础总结 | 陈·述">
-<meta name="twitter:description" content="JavaScript基础总结作用域 代码块（Block）的概念   代码块的概念在不同的语言里可能有不同的含义，如Objective-C中的代码块就和此处的不同，这里是讲JavaScript中由花括号{}包裹的部分，称它为代码块，一般地，代码块中声明的变量叫做局部变量，这里局部的概念就引出了作用域。每个代码块都有一个自己的作用域，作用域限制了变量能否被访问。   123456789for (var">
+<meta name="twitter:title" content="JavaScript基础总结">
+<meta name="twitter:description" content="JavaScript变量作用域作用域 代码块（Block）的概念 代码块的概念在不同的语言里可能有不同的含义，如Objective-C中的代码块就和此处的不同，这里是讲JavaScript中由花括号{}包裹的部分，称它为代码块，一般地，代码块中声明的变量叫做局部变量，这里局部的概念就引出了作用域。每个代码块都有一个自己的作用域，作用域限制了变量能否被访问。">
+  
+    <link rel="alternate" href="/atom.xml" title="陈·述" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
     
-    
-    
-      <link rel="icon" type="image/x-icon" href="/favicon.png">
-    
-    <link rel="stylesheet" href="/css/uno.css">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/archive.css">
-    <link rel="stylesheet" href="/css/china-social-icon.css">
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/fashion.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
 
 </head>
-<body>
-
-    <span class="mobile btn-mobile-menu">
-        <i class="icon icon-list btn-mobile-menu__icon"></i>
-        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
-    </span>
-
-    
-
-<header class="panel-cover panel-cover--collapsed">
 
 
-  <div class="panel-main">
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
 
   
-    <div class="panel-main__inner panel-inverted">
-    <div class="panel-main__content">
 
-        
-        <a href="/" title="link to homepage for 陈·述"><img src="/images/avatar.png" width="80" alt="陈·述 logo" class="panel-cover__logo logo" /></a>
-        
 
-        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">陈·述</a></h1>
-        <hr class="panel-cover__divider" />
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
 
-        
-        <p class="panel-cover__description">
-          江山一叶在扁舟、英雄无踪枉回首 --河西东
-        </p>
-        <hr class="panel-cover__divider panel-cover__divider--secondary" />
-        
+          <h1 class="site-title">
+            
+              <a href="/" title="陈·述" rel="home"> 陈·述 </a>
+            
+          </h1>
+          
+          
+            <div class="site-description">technology and stuff</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
 
-        <div class="navigation-wrapper">
-
-          <nav class="cover-navigation cover-navigation--primary">
-            <ul class="navigation">
-
-              
-                
-                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
-              
-                
-                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
-              
-                
-                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
-              
-
-            </ul>
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">归档</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">分类</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tags">标签</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/about">关于</a> </li>
+                    
+              </ul>
+            </div>
           </nav>
 
-          <!-- ----------------------------
-To add a new social icon simply duplicate one of the list items from below
-and change the class in the <i> tag to match the desired social network
-and then add your link to the <a>. Here is a full list of social network
-classes that you can use:
-
-    icon-social-500px
-    icon-social-behance
-    icon-social-delicious
-    icon-social-designer-news
-    icon-social-deviant-art
-    icon-social-digg
-    icon-social-dribbble
-    icon-social-facebook
-    icon-social-flickr
-    icon-social-forrst
-    icon-social-foursquare
-    icon-social-github
-    icon-social-google-plus
-    icon-social-hi5
-    icon-social-instagram
-    icon-social-lastfm
-    icon-social-linkedin
-    icon-social-medium
-    icon-social-myspace
-    icon-social-path
-    icon-social-pinterest
-    icon-social-rdio
-    icon-social-reddit
-    icon-social-skype
-    icon-social-spotify
-    icon-social-stack-overflow
-    icon-social-steam
-    icon-social-stumbleupon
-    icon-social-treehouse
-    icon-social-tumblr
-    icon-social-twitter
-    icon-social-vimeo
-    icon-social-xbox
-    icon-social-yelp
-    icon-social-youtube
-    icon-social-zerply
-    icon-mail
-
--------------------------------->
-
-<!-- add social info here -->
-
-
-
-        </div>
-
       </div>
-
-    </div>
-
-    <div class="panel-cover--overlay"></div>
   </div>
 </header>
 
-    <div class="content-wrapper">
-        <div class="content-wrapper__inner entry">
+
+  <div id="container">
+    <div id="wrap">
             
-
-<article class="post-container post-container--single">
-
-  <header class="post-header">
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-JavaScript基础总结" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
-    <h1 class="post-title">JavaScript基础总结</h1>
-
     
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      JavaScript基础总结
+    </h1>
+  
 
-    <div class="post-meta">
-      <time datetime="2018-02-27" class="post-meta__date date">2018-02-27</time> 
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2018/02/27/JavaScript基础总结/" class="article-date">
+	  <time datetime="2018-02-27T08:27:00.000Z" itemprop="datePublished">二月 27, 2018</time>
+	</a>
 
-      <span class="post-meta__tags tags">
-
-          
-
-          
-             &#8226; 标签:
-            <font class="tags">
-              <a class="tags-link" href="/tags/JavaScript/">JavaScript</a>
-            </font>
-          
-
-      </span>
+       
+      
     </div>
-
-    
-    
-
-
-
-  </header>
-
-  <section id="post-content" class="article-content post">
-    
-    <h1 id="JavaScript基础总结"><a href="#JavaScript基础总结" class="headerlink" title="JavaScript基础总结"></a>JavaScript基础总结</h1><h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><ul>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JavaScript变量作用域"><a href="#JavaScript变量作用域" class="headerlink" title="JavaScript变量作用域"></a>JavaScript变量作用域</h1><h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><ul>
 <li><p>代码块（Block）的概念</p>
-<p>  代码块的概念在不同的语言里可能有不同的含义，如Objective-C中的代码块就和此处的不同，这里是讲JavaScript中由花括号{}包裹的部分，称它为代码块，一般地，代码块中声明的变量叫做局部变量，这里局部的概念就引出了作用域。每个代码块都有一个自己的作用域，作用域限制了变量能否被访问。</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">for (var i = 0; i &lt; length; i++) &#123;</span><br><span class="line">	// 此&#123;&#125;之间包含的代码可认为一个代码块</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (isLogin) &#123;</span><br><span class="line">	// 此&#123;&#125;之间包含的代码可认为一个代码块</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ... and so on</span><br></pre></td></tr></table></figure>
+<p>代码块的概念在不同的语言里可能有不同的含义，如Objective-C中的代码块就和此处的不同，这里是讲JavaScript中由花括号{}包裹的部分，称它为代码块，一般地，代码块中声明的变量叫做局部变量，这里局部的概念就引出了作用域。每个代码块都有一个自己的作用域，作用域限制了变量能否被访问。</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">for (var i = 0; i &lt; length; i++) &#123;</span><br><span class="line">	// 此&#123;&#125;之间包含的代码可认为一个代码块</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (isLogin) &#123;</span><br><span class="line">	// 此&#123;&#125;之间包含的代码可认为一个代码块</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ... and so on</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>顶级作用域</p>
-<p>  在最上层没有任何{}包裹的作用域为顶层作用域，声明的变量是哪里都可以访问的</p>
+<p>在最上层没有任何{}包裹的作用域为顶层作用域，声明的变量是哪里都可以访问的</p>
 </li>
 </ul>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var global_v = 1; // 顶级作用域中声明的变量</span><br><span class="line"></span><br><span class="line">if (true) &#123;</span><br><span class="line">	global_v = 2; // 子作用域中可写</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function alertVariable() &#123;</span><br><span class="line">	alert(global_v); // 子作用域中可读</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">alertVariable();</span><br></pre></td></tr></table></figure>
-</code></pre><ul>
-<li><p>块级作用域<br>  指某个{}之间包含的代码变量作用域，js中允许跨作用域访问变量，但这将导致混乱并提高bug发生率，应避免这么做。ES6中使用let关键字声明变量就将遵守块级作用域了。</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/*** 块级作用域 ***/</span><br><span class="line">if (true) &#123;</span><br><span class="line">	var local_v = 3;</span><br><span class="line">	alert(&quot;local_v in block:&quot; + local_v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">alert(&quot;local_v out of block:&quot; + local_v); // js语言中允许这样的访问，这种做法容易导致混乱，杜绝这种做法</span><br><span class="line"></span><br><span class="line">function accessOtherBlockLoaclVariable() &#123;</span><br><span class="line">	// js语言中允许这样的访问，这种做法容易导致混乱，杜绝这种做法</span><br><span class="line">	alert(&quot;accessing other block local variable : &quot; + local_v); </span><br><span class="line">&#125;</span><br><span class="line">accessOtherBlockLoaclVariable();</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var global_v = 1; // 顶级作用域中声明的变量</span><br><span class="line"></span><br><span class="line">if (true) &#123;</span><br><span class="line">	global_v = 2; // 子作用域中可写</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function alertVariable() &#123;</span><br><span class="line">	alert(global_v); // 子作用域中可读</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">alertVariable();</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>块级作用域<br>指某个{}之间包含的代码变量作用域，js中允许跨作用域访问变量，但这将导致混乱并提高bug发生率，应避免这么做。ES6中使用let关键字声明变量就将遵守块级作用域了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/*** 块级作用域 ***/</span><br><span class="line">if (true) &#123;</span><br><span class="line">	var local_v = 3;</span><br><span class="line">	alert(&quot;local_v in block:&quot; + local_v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">alert(&quot;local_v out of block:&quot; + local_v); // js语言中允许这样的访问，这种做法容易导致混乱，杜绝这种做法</span><br><span class="line"></span><br><span class="line">function accessOtherBlockLoaclVariable() &#123;</span><br><span class="line">	// js语言中允许这样的访问，这种做法容易导致混乱，杜绝这种做法</span><br><span class="line">	alert(&quot;accessing other block local variable : &quot; + local_v); </span><br><span class="line">&#125;</span><br><span class="line">accessOtherBlockLoaclVariable();</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>父子作用域<br>  子作用域可以访问父作用域的变量，但是父作用域无法访问子作用域的变量</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">if(true)&#123;</span><br><span class="line">    let parent_v = 5;</span><br><span class="line">    if(parent_v &gt; 0)&#123;</span><br><span class="line">        let child_v = &quot;a&quot;; // 使用let关键字，将遵循块级作用域</span><br><span class="line">        console.log(child_v); // 可以访问</span><br><span class="line">        parent_v = 6; // 也可以访问</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(child_v); //无法访问，报异常： Uncaught ReferenceError: y is not defined</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>父子作用域<br>子作用域可以访问父作用域的变量，但是父作用域无法访问子作用域的变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">if(true)&#123;</span><br><span class="line">    let parent_v = 5;</span><br><span class="line">    if(parent_v &gt; 0)&#123;</span><br><span class="line">        let child_v = &quot;a&quot;; // 使用let关键字，将遵循块级作用域</span><br><span class="line">        console.log(child_v); // 可以访问</span><br><span class="line">        parent_v = 6; // 也可以访问</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(child_v); //无法访问，报异常： Uncaught ReferenceError: y is not defined</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>作用域中<code>覆盖</code>的概念</p>
 <p>  当子作用域有变量与父作用域重名的时候，在子作用域里只能访问到子作用域的变量。称之为 <code>覆盖</code>。<br>  子作用域的覆盖不会消除父作用域的变量。</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var x = 5;</span><br><span class="line"></span><br><span class="line">function a(x)&#123;</span><br><span class="line">    if(x &gt; 0)&#123;</span><br><span class="line">        x++;</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(x);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a(1);</span><br><span class="line">console.log(x); // 结果输出5，子作用域的覆盖不会消除父作用域的变量</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<h2 id="好消息"><a href="#好消息" class="headerlink" title="好消息"></a>好消息</h2><p>这一切都将成为过去，ES6中的const和let将是替代var变量命名的最佳实践。</p>
 
-  </section>
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
 
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/12/Node-js、npm和一些前端知识解惑/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Node.js、npm和一些前端知识解惑
+        
+      </div>
+    </a>
   
   
+    <a href="/2018/02/22/MacOS-X-安装Mercurial/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">MacOS X 安装Mercurial</div>
+    </a>
+  
+</nav>
 
-<section class="post-comments">
-
-    <div class="ds-thread" data-thread-key="2018/02/27/JavaScript基础总结/"></div>
-
-    <script type="text/javascript">
-      var duoshuoQuery = {short_name:"chenbin9333"};
-      (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0] 
-        || document.getElementsByTagName('body')[0]).appendChild(ds);
-      })();
-    </script> 
-
-</section>
-
-
+  
 </article>
 
+<!-- Table of Contents -->
 
-            <footer class="footer">
-
-    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
     
-</footer>
-        </div>
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript变量作用域"><span class="nav-number">1.</span> <span class="nav-text">JavaScript变量作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域"><span class="nav-number">1.1.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#好消息"><span class="nav-number">1.2.</span> <span class="nav-text">好消息</span></a></li></ol></li></ol>
+    
     </div>
+  </aside>
+</section>
+        
+      </div>
 
-    <!-- js files -->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/main.js"></script>
-    <script src="/js/scale.fix.js"></script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2018 陈·述 All Rights Reserved.
+        
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
     
-
     
-
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript"> 
-        $(document).ready(function(){
-            MathJax.Hub.Config({ 
-                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
-            });
-        });
-    </script>
-
-
+</script>
     
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
 
-    <script src="/js/awesome-toc.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $.awesome_toc({
-                overlay: true,
-                contentId: "post-content",
-            });
-        });
-    </script>
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 
-    
-    
-    <!--kill ie6 -->
-<!--[if IE 6]>
-  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
-<![endif]-->
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
 </body>
 </html>

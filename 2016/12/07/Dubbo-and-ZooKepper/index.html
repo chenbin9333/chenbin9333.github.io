@@ -1,197 +1,142 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    
-
-    <title>
-      Dubbo and ZooKepper | 陈·述 
-    </title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    
-      <meta name="author" content="Chen Bin">
-    
-    
-
-    <meta name="description" content="1Writing is pretty much like coding, and the author is the compiler. Dubbo 和 ZooKeeper，一个“搭布”和动物园管理员的故事，而实际上它们是一个开发的故事，让我们开始学习并使用它们吧。 分而治之 (Divide and conquer.)  首先我们先解决何为 Dubbo 和 何为 ZooKeeper 的问题，再接着">
+  <meta charset="utf-8">
+  
+  <title>Dubbo and ZooKepper | 陈·述</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Java" />
+  
+  
+  
+  
+  <meta name="description" content="1Writing is pretty much like coding, and the author is the compiler. Dubbo 和 ZooKeeper，一个“搭布”和动物园管理员的故事，而实际上它们是一个开发的故事，让我们开始学习并使用它们吧。 分而治之 (Divide and conquer.)  首先我们先解决何为 Dubbo 和 何为 ZooKeeper 的问题，再接着">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Dubbo and ZooKepper | 陈·述">
+<meta property="og:title" content="Dubbo and ZooKepper">
 <meta property="og:url" content="http://chenbin9333.com/2016/12/07/Dubbo-and-ZooKepper/index.html">
 <meta property="og:site_name" content="陈·述">
 <meta property="og:description" content="1Writing is pretty much like coding, and the author is the compiler. Dubbo 和 ZooKeeper，一个“搭布”和动物园管理员的故事，而实际上它们是一个开发的故事，让我们开始学习并使用它们吧。 分而治之 (Divide and conquer.)  首先我们先解决何为 Dubbo 和 何为 ZooKeeper 的问题，再接着">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2016-12-08T09:36:46.000Z">
+<meta property="og:updated_time" content="2018-05-28T10:06:49.253Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dubbo and ZooKepper | 陈·述">
+<meta name="twitter:title" content="Dubbo and ZooKepper">
 <meta name="twitter:description" content="1Writing is pretty much like coding, and the author is the compiler. Dubbo 和 ZooKeeper，一个“搭布”和动物园管理员的故事，而实际上它们是一个开发的故事，让我们开始学习并使用它们吧。 分而治之 (Divide and conquer.)  首先我们先解决何为 Dubbo 和 何为 ZooKeeper 的问题，再接着">
+  
+    <link rel="alternate" href="/atom.xml" title="陈·述" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
     
-    
-    
-      <link rel="icon" type="image/x-icon" href="/favicon.png">
-    
-    <link rel="stylesheet" href="/css/uno.css">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/archive.css">
-    <link rel="stylesheet" href="/css/china-social-icon.css">
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/fashion.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
 
 </head>
-<body>
-
-    <span class="mobile btn-mobile-menu">
-        <i class="icon icon-list btn-mobile-menu__icon"></i>
-        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
-    </span>
-
-    
-
-<header class="panel-cover panel-cover--collapsed">
 
 
-  <div class="panel-main">
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
 
   
-    <div class="panel-main__inner panel-inverted">
-    <div class="panel-main__content">
 
-        
-        <a href="/" title="link to homepage for 陈·述"><img src="/images/avatar.png" width="80" alt="陈·述 logo" class="panel-cover__logo logo" /></a>
-        
 
-        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">陈·述</a></h1>
-        <hr class="panel-cover__divider" />
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
 
-        
-        <p class="panel-cover__description">
-          江山一叶在扁舟、英雄无踪枉回首 --河西东
-        </p>
-        <hr class="panel-cover__divider panel-cover__divider--secondary" />
-        
+          <h1 class="site-title">
+            
+              <a href="/" title="陈·述" rel="home"> 陈·述 </a>
+            
+          </h1>
+          
+          
+            <div class="site-description">technology and stuff</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
 
-        <div class="navigation-wrapper">
-
-          <nav class="cover-navigation cover-navigation--primary">
-            <ul class="navigation">
-
-              
-                
-                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
-              
-                
-                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
-              
-                
-                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
-              
-
-            </ul>
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">归档</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">分类</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/tags">标签</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/about">关于</a> </li>
+                    
+              </ul>
+            </div>
           </nav>
 
-          <!-- ----------------------------
-To add a new social icon simply duplicate one of the list items from below
-and change the class in the <i> tag to match the desired social network
-and then add your link to the <a>. Here is a full list of social network
-classes that you can use:
-
-    icon-social-500px
-    icon-social-behance
-    icon-social-delicious
-    icon-social-designer-news
-    icon-social-deviant-art
-    icon-social-digg
-    icon-social-dribbble
-    icon-social-facebook
-    icon-social-flickr
-    icon-social-forrst
-    icon-social-foursquare
-    icon-social-github
-    icon-social-google-plus
-    icon-social-hi5
-    icon-social-instagram
-    icon-social-lastfm
-    icon-social-linkedin
-    icon-social-medium
-    icon-social-myspace
-    icon-social-path
-    icon-social-pinterest
-    icon-social-rdio
-    icon-social-reddit
-    icon-social-skype
-    icon-social-spotify
-    icon-social-stack-overflow
-    icon-social-steam
-    icon-social-stumbleupon
-    icon-social-treehouse
-    icon-social-tumblr
-    icon-social-twitter
-    icon-social-vimeo
-    icon-social-xbox
-    icon-social-yelp
-    icon-social-youtube
-    icon-social-zerply
-    icon-mail
-
--------------------------------->
-
-<!-- add social info here -->
-
-
-
-        </div>
-
       </div>
-
-    </div>
-
-    <div class="panel-cover--overlay"></div>
   </div>
 </header>
 
-    <div class="content-wrapper">
-        <div class="content-wrapper__inner entry">
+
+  <div id="container">
+    <div id="wrap">
             
-
-<article class="post-container post-container--single">
-
-  <header class="post-header">
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Dubbo-and-ZooKepper" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
-    <h1 class="post-title">Dubbo and ZooKepper</h1>
-
     
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Dubbo and ZooKepper
+    </h1>
+  
 
-    <div class="post-meta">
-      <time datetime="2016-12-07" class="post-meta__date date">2016-12-07</time> 
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2016/12/07/Dubbo-and-ZooKepper/" class="article-date">
+	  <time datetime="2016-12-07T01:31:33.000Z" itemprop="datePublished">十二月 7, 2016</time>
+	</a>
 
-      <span class="post-meta__tags tags">
-
-          
-
-          
-             &#8226; 标签:
-            <font class="tags">
-              <a class="tags-link" href="/tags/Java/">Java</a>
-            </font>
-          
-
-      </span>
+       
+      
     </div>
-
-    
-    
-
-
-
-  </header>
-
-  <section id="post-content" class="article-content post">
-    
-    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Writing is pretty much like coding, and the author is the compiler.</span><br></pre></td></tr></table></figure>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Writing is pretty much like coding, and the author is the compiler.</span><br></pre></td></tr></table></figure>
 <p>Dubbo 和 ZooKeeper，一个“搭布”和动物园管理员的故事，而实际上它们是一个开发的故事，让我们开始学习并使用它们吧。</p>
 <p>分而治之 (Divide and conquer.) </p>
 <p>首先我们先解决何为 Dubbo 和 何为 ZooKeeper 的问题，再接着探究二者之间的关系，最后，再使用这两者进行开发应用实现一个Demo。</p>
+<a id="more"></a>
 <h2 id="何为-Dubbo-？"><a href="#何为-Dubbo-？" class="headerlink" title="何为 Dubbo ？"></a>何为 Dubbo ？</h2><p>Dubbo 是阿里的一个开源框架，来看看 <a href="http://dubbo.io/Home-zh.htm" target="_blank" rel="noopener">Dubbo 官网</a> 给出的定义：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Dubbo 是一个分布式服务框架，致力于提供高性能和透明化的RPC远程服务调用方案，以及SOA服务治理方案。</span><br><span class="line">其核心部分包含:</span><br><span class="line">* 远程通讯: 提供对多种基于长连接的NIO框架抽象封装，包括多种线程模型，序列化，以及“请求-响应”模式的信息交换方式。</span><br><span class="line">* 集群容错: 提供基于接口方法的透明远程过程调用，包括多协议支持，以及软负载均衡，失败容错，地址路由，动态配置等集群支持。</span><br><span class="line">* 自动发现: 基于注册中心目录服务，使服务消费方能动态的查找服务提供方，使地址透明，使服务提供方可以平滑增加或减少机器。</span><br></pre></td></tr></table></figure>
 <p>其中<code>分布式</code>是我们可以利用 Dubbo 进行集群搭建和负载均衡。而<code>服务</code>是服务提供方开发服务注册到注册中心提供给服务消费方使用，为远程服务，地址透明。</p>
@@ -226,78 +171,159 @@ classes that you can use:
 <p>页面执行结果将打印出：<code>Hello chenbin</code></p>
 <p>完整的Demo工程见Github链接<a href="https://github.com/chenbin9333/delonix" target="_blank" rel="noopener">https://github.com/chenbin9333/delonix</a></p>
 
-  </section>
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
 
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/02/22/工厂模式/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          工厂模式
+        
+      </div>
+    </a>
   
   
+    <a href="/2016/04/11/单例模式-Singleton-Pattern/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">单例模式 Singleton Pattern</div>
+    </a>
+  
+</nav>
 
-<section class="post-comments">
-
-    <div class="ds-thread" data-thread-key="2016/12/07/Dubbo-and-ZooKepper/"></div>
-
-    <script type="text/javascript">
-      var duoshuoQuery = {short_name:"chenbin9333"};
-      (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0] 
-        || document.getElementsByTagName('body')[0]).appendChild(ds);
-      })();
-    </script> 
-
-</section>
-
-
+  
 </article>
 
+<!-- Table of Contents -->
 
-            <footer class="footer">
-
-    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
     
-</footer>
-        </div>
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#何为-Dubbo-？"><span class="nav-number">1.</span> <span class="nav-text">何为 Dubbo ？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#何为-ZooKeeper-？"><span class="nav-number">2.</span> <span class="nav-text">何为 ZooKeeper ？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dubbo-和-ZooKeeper-的关系？"><span class="nav-number">3.</span> <span class="nav-text">Dubbo 和 ZooKeeper 的关系？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dubbo-和-ZooKeeper-使用示例"><span class="nav-number">4.</span> <span class="nav-text">Dubbo 和 ZooKeeper 使用示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前提"><span class="nav-number">4.1.</span> <span class="nav-text">前提</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载安装ZooKeeper"><span class="nav-number">4.1.1.</span> <span class="nav-text">下载安装ZooKeeper</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ZooKeeper启动、关闭"><span class="nav-number">4.1.2.</span> <span class="nav-text">ZooKeeper启动、关闭</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例编写"><span class="nav-number">4.2.</span> <span class="nav-text">示例编写</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编写提供者（Provider）提供的服务接口"><span class="nav-number">4.2.1.</span> <span class="nav-text">编写提供者（Provider）提供的服务接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务接口的具体实现"><span class="nav-number">4.2.2.</span> <span class="nav-text">服务接口的具体实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注册并暴露服务接口"><span class="nav-number">4.2.3.</span> <span class="nav-text">注册并暴露服务接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端调用HelloService接口"><span class="nav-number">4.2.4.</span> <span class="nav-text">客户端调用HelloService接口</span></a></li></ol></li></ol></li></ol>
+    
     </div>
+  </aside>
+</section>
+        
+      </div>
 
-    <!-- js files -->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/main.js"></script>
-    <script src="/js/scale.fix.js"></script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2018 陈·述 All Rights Reserved.
+        
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
     
-
     
-
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript"> 
-        $(document).ready(function(){
-            MathJax.Hub.Config({ 
-                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
-            });
-        });
-    </script>
-
-
+</script>
     
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
 
-    <script src="/js/awesome-toc.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $.awesome_toc({
-                overlay: true,
-                contentId: "post-content",
-            });
-        });
-    </script>
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 
-    
-    
-    <!--kill ie6 -->
-<!--[if IE 6]>
-  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
-<![endif]-->
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
 </body>
 </html>
